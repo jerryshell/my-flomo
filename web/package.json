@@ -13,7 +13,7 @@
     "dayjs": "^1.11.19",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.30.1",
+    "react-router-dom": "^6.30.3",
     "recoil": "^0.7.7",
     "tailwindcss": "^4.1.17",
     "theme-change": "^2.5.0"
