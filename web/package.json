@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
-    "axios": "^1.15.0",
+    "axios": "^1.15.2",
     "daisyui": "^5.4.7",
     "dayjs": "^1.11.19",
     "react": "^18.3.1",
