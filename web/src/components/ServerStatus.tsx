@@ -7,12 +7,7 @@ interface ServerStatusProps {
   showDetails: boolean;
 }
 
-const ServerStatus = ({
-  status,
-  healthData,
-  onToggleDetails,
-  showDetails,
-}: ServerStatusProps) => {
+const ServerStatus = ({ status, healthData, onToggleDetails, showDetails }: ServerStatusProps) => {
   const getStatusColor = () => {
     switch (status) {
       case "在线":
@@ -50,16 +45,11 @@ const ServerStatus = ({
                 {healthData.version.commit.substring(0, 7)}
               </a>
             ) : (
-              <span className="text-xs text-warning">
-                开发模式 (无commit信息)
-              </span>
+              <span className="text-xs text-warning">开发模式 (无commit信息)</span>
             )}
           </div>
 
-          <button
-            className="btn btn-xs btn-ghost self-start"
-            onClick={onToggleDetails}
-          >
+          <button className="btn btn-xs btn-ghost self-start" onClick={onToggleDetails}>
             {showDetails ? "隐藏详情" : "显示详情"}
           </button>
         </>

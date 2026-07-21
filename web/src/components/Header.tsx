@@ -12,9 +12,7 @@ const Header = ({ logout }: HeaderProps) => {
     // 从 localStorage 获取保存的主题，如果没有则使用操作系统偏好
     const savedTheme =
       localStorage.getItem("theme") ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light");
+      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     setTheme(savedTheme);
     document.documentElement.setAttribute("data-theme", savedTheme);
   }, []);
@@ -57,12 +55,7 @@ const Header = ({ logout }: HeaderProps) => {
         </button>
 
         <button className="btn btn-outline btn-error gap-2" onClick={logout}>
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

@@ -77,9 +77,7 @@ const FlomoImport = (props: { fetchMemoList: () => void }) => {
         </div>
 
         {uploadFileList && uploadFileList.length > 0 && (
-          <div className="text-sm text-success">
-            已选择 {uploadFileList.length} 个文件
-          </div>
+          <div className="text-sm text-success">已选择 {uploadFileList.length} 个文件</div>
         )}
 
         <button
@@ -87,11 +85,7 @@ const FlomoImport = (props: { fetchMemoList: () => void }) => {
           onClick={handleImportDataBtnClick}
           disabled={!uploadFileList || isLoading}
         >
-          {isLoading ? (
-            <span className="loading loading-spinner"></span>
-          ) : (
-            "提交导入"
-          )}
+          {isLoading ? <span className="loading loading-spinner"></span> : "提交导入"}
         </button>
       </div>
 

@@ -217,9 +217,7 @@ const UserSettingsCard = () => {
       <div className="space-y-6">
         {/* 密码更新部分 */}
         <section>
-          <h3 className="font-semibold text-lg mb-4 pb-2 border-b border-base-300">
-            密码设置
-          </h3>
+          <h3 className="font-semibold text-lg mb-4 pb-2 border-b border-base-300">密码设置</h3>
           <div className="space-y-3">
             <div className="form-control">
               <label className="label">
@@ -250,20 +248,14 @@ const UserSettingsCard = () => {
               onClick={handleUpdatePassword}
               disabled={!newPassword || !newPassword2 || passwordLoading}
             >
-              {passwordLoading ? (
-                <span className="loading loading-spinner"></span>
-              ) : (
-                "更新密码"
-              )}
+              {passwordLoading ? <span className="loading loading-spinner"></span> : "更新密码"}
             </button>
           </div>
         </section>
 
         {/* 用户偏好设置 */}
         <section>
-          <h3 className="font-semibold text-lg mb-4 pb-2 border-b border-base-300">
-            偏好设置
-          </h3>
+          <h3 className="font-semibold text-lg mb-4 pb-2 border-b border-base-300">偏好设置</h3>
           <div className="space-y-4">
             {/* 开启每日回顾开关 */}
             <div className="form-control">
@@ -286,16 +278,12 @@ const UserSettingsCard = () => {
             {/* Telegram Bot 配置 */}
             <div
               className={`space-y-3 transition-all duration-300 ${
-                dailyReviewEnabled
-                  ? "opacity-100 max-h-96"
-                  : "opacity-50 max-h-0 overflow-hidden"
+                dailyReviewEnabled ? "opacity-100 max-h-96" : "opacity-50 max-h-0 overflow-hidden"
               }`}
             >
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-medium">
-                    Telegram Chat ID
-                  </span>
+                  <span className="label-text font-medium">Telegram Chat ID</span>
                 </label>
                 <input
                   type="text"
@@ -322,9 +310,7 @@ const UserSettingsCard = () => {
 
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-medium">
-                    Telegram Bot Token
-                  </span>
+                  <span className="label-text font-medium">Telegram Bot Token</span>
                 </label>
                 <input
                   type="password"
@@ -370,45 +356,30 @@ const UserSettingsCard = () => {
               <button
                 className="btn btn-outline btn-sm w-full"
                 onClick={handleTestDailyReview}
-                disabled={
-                  testing ||
-                  !dailyReviewEnabled ||
-                  !telegramChatId ||
-                  !telegramBotToken
-                }
+                disabled={testing || !dailyReviewEnabled || !telegramChatId || !telegramBotToken}
               >
-                {testing ? (
-                  <span className="loading loading-spinner"></span>
-                ) : (
-                  "测试每日回顾"
-                )}
+                {testing ? <span className="loading loading-spinner"></span> : "测试每日回顾"}
               </button>
-              <div className="text-xs text-base-content/50 mt-1">
-                点击测试按钮立刻触发每日回顾
-              </div>
+              <div className="text-xs text-base-content/50 mt-1">点击测试按钮立刻触发每日回顾</div>
             </div>
           </div>
         </section>
 
         {/* 插件接口 */}
         <section>
-          <h3 className="font-semibold text-lg mb-4 pb-2 border-b border-base-300">
-            插件接口
-          </h3>
+          <h3 className="font-semibold text-lg mb-4 pb-2 border-b border-base-300">插件接口</h3>
           <div className="space-y-4">
             {pluginToken ? (
               <div className="space-y-3">
                 {/* 新增记录接口 */}
                 <div className="bg-base-200 p-4 rounded-lg border border-base-300">
                   <div className="flex items-center justify-between mb-2">
-                    <p className="text-sm font-medium text-base-content">
-                      新增记录接口
-                    </p>
+                    <p className="text-sm font-medium text-base-content">新增记录接口</p>
                     <button
                       className="btn btn-xs btn-ghost text-base-content/60 hover:text-base-content"
                       onClick={() => {
                         navigator.clipboard.writeText(
-                          `${api.defaults.baseURL}/plugin/createMemo/${pluginToken}`
+                          `${api.defaults.baseURL}/plugin/createMemo/${pluginToken}`,
                         );
                         showAlert({
                           message: "接口地址已复制到剪贴板",
@@ -448,14 +419,12 @@ const UserSettingsCard = () => {
                 {/* 随机获取接口 */}
                 <div className="bg-base-200 p-4 rounded-lg border border-base-300">
                   <div className="flex items-center justify-between mb-2">
-                    <p className="text-sm font-medium text-base-content">
-                      随机获取接口
-                    </p>
+                    <p className="text-sm font-medium text-base-content">随机获取接口</p>
                     <button
                       className="btn btn-xs btn-ghost text-base-content/60 hover:text-base-content"
                       onClick={() => {
                         navigator.clipboard.writeText(
-                          `${api.defaults.baseURL}/plugin/randomMemo/${pluginToken}`
+                          `${api.defaults.baseURL}/plugin/randomMemo/${pluginToken}`,
                         );
                         showAlert({
                           message: "接口地址已复制到剪贴板",
@@ -495,9 +464,7 @@ const UserSettingsCard = () => {
                 {/* 令牌信息 */}
                 <div className="bg-base-200/50 p-3 rounded border border-base-300/50">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-base-content/60">
-                      当前令牌:
-                    </span>
+                    <span className="text-xs text-base-content/60">当前令牌:</span>
                     <div className="flex items-center gap-2">
                       <code className="text-xs font-mono bg-base-300/30 px-2 py-1 rounded">
                         {pluginToken.substring(0, 8)}...

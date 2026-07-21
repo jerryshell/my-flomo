@@ -30,12 +30,7 @@ const Modal: React.FC<ModalProps> = ({
       case "success":
         return (
           <div className="text-success">
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -48,12 +43,7 @@ const Modal: React.FC<ModalProps> = ({
       case "warning":
         return (
           <div className="text-warning">
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -66,12 +56,7 @@ const Modal: React.FC<ModalProps> = ({
       case "error":
         return (
           <div className="text-error">
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -84,12 +69,7 @@ const Modal: React.FC<ModalProps> = ({
       default:
         return (
           <div className="text-info">
-            <svg
-              className="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -131,10 +111,10 @@ const Modal: React.FC<ModalProps> = ({
                 type === "error"
                   ? "btn-error"
                   : type === "warning"
-                  ? "btn-warning"
-                  : type === "success"
-                  ? "btn-success"
-                  : "btn-primary"
+                    ? "btn-warning"
+                    : type === "success"
+                      ? "btn-success"
+                      : "btn-primary"
               }`}
               onClick={handleConfirm}
             >

@@ -54,9 +54,7 @@ function App() {
           {token && (
             <Route
               path="/home"
-              element={
-                <HomePage fetchMemoList={fetchMemoList} logout={logout} />
-              }
+              element={<HomePage fetchMemoList={fetchMemoList} logout={logout} />}
             />
           )}
 

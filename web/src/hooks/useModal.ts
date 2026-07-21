@@ -33,7 +33,7 @@ export const useModal = () => {
       });
       setModalOpen(true);
     },
-    []
+    [],
   );
 
   const hideModal = useCallback(() => {
@@ -69,7 +69,7 @@ export const useAlert = () => {
       });
       setAlertOpen(true);
     },
-    []
+    [],
   );
 
   const hideAlert = useCallback(() => {

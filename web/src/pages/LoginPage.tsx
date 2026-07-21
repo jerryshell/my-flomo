@@ -107,9 +107,7 @@ const LoginPage = () => {
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <div className="card-body">
               <h2 className="card-title">登录/注册</h2>
-              <p className="text-sm text-base-content/60 mb-4">
-                不存在的账号将自动注册
-              </p>
+              <p className="text-sm text-base-content/60 mb-4">不存在的账号将自动注册</p>
 
               <div className="form-control">
                 <label className="label">
@@ -118,17 +116,13 @@ const LoginPage = () => {
                 <input
                   type="email"
                   placeholder="请输入邮箱"
-                  className={`input input-bordered ${
-                    emailError ? "input-error" : ""
-                  }`}
+                  className={`input input-bordered ${emailError ? "input-error" : ""}`}
                   value={email}
                   onChange={(e) => handleEmailChange(e.target.value)}
                 />
                 {emailError && (
                   <label className="label">
-                    <span className="label-text-alt text-error">
-                      {emailError}
-                    </span>
+                    <span className="label-text-alt text-error">{emailError}</span>
                   </label>
                 )}
               </div>
@@ -151,10 +145,7 @@ const LoginPage = () => {
                 {logging ? (
                   <Logging />
                 ) : (
-                  <button
-                    className="btn btn-primary w-full"
-                    onClick={handleLoginClick}
-                  >
+                  <button className="btn btn-primary w-full" onClick={handleLoginClick}>
                     登录/注册
                   </button>
                 )}

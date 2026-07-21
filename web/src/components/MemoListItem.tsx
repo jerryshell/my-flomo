@@ -29,9 +29,7 @@ const MemoListItem = (props: { memo: Memo }) => {
         const success = response.data.success;
         if (success) {
           const memo = response.data.data;
-          setMemoList(
-            memoList.map((item) => (item.id === memo.id ? memo : item))
-          );
+          setMemoList(memoList.map((item) => (item.id === memo.id ? memo : item)));
         }
       })
       .finally(() => {
@@ -112,12 +110,7 @@ const MemoListItem = (props: { memo: Memo }) => {
                     onClick={handleCancelBtnClick}
                     disabled={isLoading}
                   >
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -133,12 +126,7 @@ const MemoListItem = (props: { memo: Memo }) => {
                   className="btn btn-sm btn-outline gap-2"
                   onClick={() => setEditModeFlag(true)}
                 >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -159,12 +147,7 @@ const MemoListItem = (props: { memo: Memo }) => {
                   <span className="loading loading-spinner loading-xs"></span>
                 ) : (
                   <>
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"

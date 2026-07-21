@@ -23,12 +23,7 @@ const MemoKeywordFilter = () => {
                 onChange={(e) => setMemoKeyword(e.target.value)}
               />
               <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/60">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -43,12 +38,7 @@ const MemoKeywordFilter = () => {
               onClick={() => setMemoKeyword("")}
               disabled={!memoKeyword}
             >
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

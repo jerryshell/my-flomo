@@ -79,20 +79,14 @@ const CsvImport = (props: { fetchMemoList: () => void }) => {
           />
         </div>
 
-        {csvFile && (
-          <div className="text-sm text-success">已选择文件: {csvFile.name}</div>
-        )}
+        {csvFile && <div className="text-sm text-success">已选择文件: {csvFile.name}</div>}
 
         <button
           className="btn btn-primary btn-sm"
           onClick={handleCsvImportBtnClick}
           disabled={!csvFile || isLoading}
         >
-          {isLoading ? (
-            <span className="loading loading-spinner"></span>
-          ) : (
-            "提交导入"
-          )}
+          {isLoading ? <span className="loading loading-spinner"></span> : "提交导入"}
         </button>
       </div>
 

@@ -36,9 +36,7 @@ const HomePage = (props: HomePageProps) => {
                 onToggleDetails={() => setShowDetails(!showDetails)}
                 showDetails={showDetails}
               />
-              {showDetails && healthData && (
-                <ServerDetails healthData={healthData} />
-              )}
+              {showDetails && healthData && <ServerDetails healthData={healthData} />}
             </div>
           </div>
 
@@ -84,9 +82,7 @@ const HomePage = (props: HomePageProps) => {
             <div className="card-body p-6">
               <div className="flex items-center space-x-3 mb-4">
                 <div className="w-3 h-3 bg-error rounded-full"></div>
-                <h2 className="card-title text-lg font-semibold text-error">
-                  危险区域
-                </h2>
+                <h2 className="card-title text-lg font-semibold text-error">危险区域</h2>
               </div>
               <DangerousArea logout={props.logout} />
             </div>

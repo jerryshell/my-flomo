@@ -49,20 +49,14 @@ const DangerousArea = (props: { logout: () => void }) => {
       <div className="space-y-3">
         {showConfirm ? (
           <div className="space-y-2">
-            <p className="text-sm text-error font-medium">
-              确定要删除账号吗？此操作不可逆！
-            </p>
+            <p className="text-sm text-error font-medium">确定要删除账号吗？此操作不可逆！</p>
             <div className="flex gap-2">
               <button
                 className="btn btn-error btn-sm"
                 onClick={deleteMyAccount}
                 disabled={isLoading}
               >
-                {isLoading ? (
-                  <span className="loading loading-spinner"></span>
-                ) : (
-                  "确认删除"
-                )}
+                {isLoading ? <span className="loading loading-spinner"></span> : "确认删除"}
               </button>
               <button
                 className="btn btn-outline btn-sm"
@@ -74,10 +68,7 @@ const DangerousArea = (props: { logout: () => void }) => {
             </div>
           </div>
         ) : (
-          <button
-            className="btn btn-error btn-outline btn-sm w-full"
-            onClick={deleteMyAccount}
-          >
+          <button className="btn btn-error btn-outline btn-sm w-full" onClick={deleteMyAccount}>
             账号注销（永久抹除数据，无法恢复）
           </button>
         )}

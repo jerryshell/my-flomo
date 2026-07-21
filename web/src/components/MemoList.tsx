@@ -8,17 +8,13 @@ const MemoList = () => {
   const memoList = useRecoilValue(atoms.memoList);
   const memoKeyword = useRecoilValue(atoms.memoKeyword);
   const memoShowList = useMemo(() => {
-    const memoKeywordSplit = memoKeyword
-      .split(" ")
-      .filter((item) => item.length > 0);
+    const memoKeywordSplit = memoKeyword.split(" ").filter((item) => item.length > 0);
     if (memoKeywordSplit.length <= 0) {
       return memoList;
     }
     return memoList.filter((item) => {
       return Object.values(item).some((value) => {
-        return memoKeywordSplit.some(
-          (keyword) => value && value.includes(keyword)
-        );
+        return memoKeywordSplit.some((keyword) => value && value.includes(keyword));
       });
     });
   }, [memoList, memoKeyword]);
@@ -31,9 +27,7 @@ const MemoList = () => {
           <div className="card-body text-center py-12">
             <div className="text-6xl mb-4">📝</div>
             <h3 className="text-xl font-semibold mb-2">还没有想法</h3>
-            <p className="text-base-content/70">
-              创建你的第一条想法开始记录吧！
-            </p>
+            <p className="text-base-content/70">创建你的第一条想法开始记录吧！</p>
           </div>
         </div>
       </div>
