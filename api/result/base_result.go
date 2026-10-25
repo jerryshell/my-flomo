@@ -41,15 +41,6 @@ func SuccessWithDataAndMessage(data interface{}, message string) *BaseResult {
 
 // === 失败 ===
 
-func Error() *BaseResult {
-	return &BaseResult{
-		Success: false,
-		Code:    http.StatusBadRequest,
-		Message: "error",
-		Data:    nil,
-	}
-}
-
 func ErrorWithMessage(message string) *BaseResult {
 	return &BaseResult{
 		Success: false,

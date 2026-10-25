@@ -77,7 +77,7 @@ const LoginPage = () => {
     setToken(loginResponse.token);
     localStorage.setItem("email", loginResponse.email);
     localStorage.setItem("token", loginResponse.token);
-    localStorage.setItem("expiresAt", loginResponse.expiresAt);
+    localStorage.setItem("expiresAt", String(loginResponse.expiresAt));
   };
 
   const handleEmailChange = (value: string) => {

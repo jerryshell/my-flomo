@@ -1,7 +1,7 @@
 interface LoginResponse {
   email: string;
   token: string;
-  expiresAt: string;
+  expiresAt: number;
 }
 
 export default LoginResponse;

@@ -1,9 +1,9 @@
 import api from "./api";
 
-const authApi = {
+const deleteMyAccountApi = {
   deleteMyAccount: () => {
     return api.post("/deleteMyAccount");
   },
 };
 
-export default authApi;
+export default deleteMyAccountApi;
