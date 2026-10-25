@@ -1,6 +1,6 @@
 # My Flomo
 
-自托管的想法记录与回顾应用，提供与 Flomo 兼容的插件接口。前后端分离：后端使用 Go，前端使用 React 与 TypeScript，数据保存在本地 SQLite 文件中。
+自托管的想法记录与回顾应用，提供与 Flomo 兼容的插件接口。后端使用 Go，前端使用 React 与 TypeScript，数据保存在本地 SQLite 文件中。前端构建产物嵌入后端，运行时只需一个端口。
 
 ## 功能
 
@@ -14,7 +14,7 @@
 
 ## 技术栈
 
-- 后端：Go、Gin、GORM、SQLite、JWT、robfig cron、SMTP、Telegram Bot API、zap
+- 后端：Go、Gin、GORM、SQLite、JWT、robfig cron、SMTP、Telegram Bot API、zap、embed
 - 前端：React、TypeScript、Vite、Jotai、React Router、原生 fetch、Tailwind CSS、daisyUI
 
 ## 项目结构
@@ -31,8 +31,11 @@ api/
 ├── route/       # 路由表
 ├── service/     # 业务逻辑
 ├── store/       # 数据访问
-└── util/        # ID、JWT、邮箱校验、日志工具
-web/
+├── util/        # ID、JWT、邮箱校验、日志工具
+└── web/         # 前端资源嵌入与单页应用回退
+    └── public/  # 构建产物，由 bun run build 生成
+
+web/              # 前端源码
 └── src/
     ├── api/         # 接口封装
     ├── atoms/       # Jotai 状态
@@ -45,15 +48,32 @@ web/
 
 ## 部署
 
-### 后端
+前端构建产物写入 `api/web/public`，编译时嵌入 Go 二进制。运行后一个端口同时提供页面与接口。
 
-需要 Go 1.26 或更高版本。
+需要 Go 1.26 与 Bun。
+
+```bash
+cd web
+bun install
+bun run build
+
+cd ../api
+go run main.go
+```
+
+访问 `http://localhost:8060`。
+
+构建发布二进制。
 
 ```bash
 cd api
-go mod download
-go run main.go
+make build
+./my-flomo-server
 ```
+
+`make build` 会先构建前端再编译后端。仓库不包含 `api/web/public`，首次编译后端前必须先构建前端。修改前端后需要重新执行 `bun run build`，并重新编译后端。
+
+### 环境变量
 
 环境变量均可省略，省略时使用下表中的默认值。
 
@@ -73,24 +93,22 @@ go run main.go
 
 默认监听 `localhost`，仅本机可访问。需要局域网或其他设备访问时，设置 `HOST=0.0.0.0`。
 
-### 前端
+### 前端开发
 
-需要 Bun。
+后端照常启动，前端使用 Vite 开发服务器。
 
 ```bash
+# 终端 1
+cd api
+go run main.go
+
+# 终端 2
 cd web
 bun install
 bun run dev
 ```
 
-构建与预览。
-
-```bash
-bun run build
-bun run preview
-```
-
-接口地址由 `web/.env` 中的 `VITE_API_BASE_URL` 指定，默认 `http://localhost:8060`。前端与后端不同源部署时，需要改为后端真实地址。
+Vite 将 `/auth`、`/memo`、`/plugin`、`/user`、`/upload`、`/deleteMyAccount`、`/csvExport`、`/health` 代理到 `http://localhost:8060`。`web/.env` 中的 `VITE_API_BASE_URL` 保持为空，接口使用同源相对路径。
 
 ## 每日回顾
 

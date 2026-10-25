@@ -1,9 +1,10 @@
 const baseURL = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/+$/, "");
 
-// 接口地址，供下载与第三方调用拼接
-export const apiBaseURL = baseURL;
-
 export const apiUrl = (path: string) => `${baseURL}${path}`;
+
+// 补上当前域名，用于展示与复制完整接口地址
+export const apiAbsoluteUrl = (path: string) =>
+  new URL(apiUrl(path), window.location.origin).toString();
 
 export interface ApiResponse<T = unknown> {
   success: boolean;

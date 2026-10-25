@@ -9,6 +9,7 @@ import (
 	"github.com/jerryshell/my-flomo/api/route"
 	"github.com/jerryshell/my-flomo/api/service"
 	"github.com/jerryshell/my-flomo/api/util"
+	"github.com/jerryshell/my-flomo/api/web"
 	"github.com/robfig/cron/v3"
 )
 
@@ -28,6 +29,7 @@ func main() {
 	}))
 
 	route.Setup(app)
+	web.Setup(app)
 
 	_ = app.Run(config.Data.Host + ":" + strconv.Itoa(config.Data.Port))
 }

@@ -1,5 +1,13 @@
 .DS_Store
 .idea
 *.exe
+my-flomo-server
 my-flomo-server-*
-my-flomo.db
+
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# 前端构建产物，由 bun run build 生成
+web/public/

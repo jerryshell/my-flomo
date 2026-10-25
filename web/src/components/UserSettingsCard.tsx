@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import userApi from "../api/userApi";
 import pluginApi from "../api/pluginApi";
-import { apiBaseURL } from "../api/api";
+import { apiAbsoluteUrl } from "../api/api";
 import { useAlert } from "../hooks/useModal";
 import Alert from "./Alert";
 
@@ -361,7 +361,7 @@ const UserSettingsCard = () => {
                       className="btn btn-xs btn-ghost text-base-content/60 hover:text-base-content"
                       onClick={() => {
                         navigator.clipboard.writeText(
-                          `${apiBaseURL}/plugin/createMemo/${pluginToken}`,
+                          apiAbsoluteUrl(`/plugin/createMemo/${pluginToken}`),
                         );
                         showAlert({
                           message: "接口地址已复制",
@@ -390,7 +390,7 @@ const UserSettingsCard = () => {
                   </div>
                   <div className="bg-base-300/50 p-3 rounded">
                     <code className="text-xs break-all font-mono text-base-content">
-                      {apiBaseURL}/plugin/createMemo/{pluginToken}
+                      {apiAbsoluteUrl(`/plugin/createMemo/${pluginToken}`)}
                     </code>
                   </div>
                   <p className="text-xs text-base-content/60 mt-2">
@@ -405,7 +405,7 @@ const UserSettingsCard = () => {
                       className="btn btn-xs btn-ghost text-base-content/60 hover:text-base-content"
                       onClick={() => {
                         navigator.clipboard.writeText(
-                          `${apiBaseURL}/plugin/randomMemo/${pluginToken}`,
+                          apiAbsoluteUrl(`/plugin/randomMemo/${pluginToken}`),
                         );
                         showAlert({
                           message: "接口地址已复制",
@@ -434,7 +434,7 @@ const UserSettingsCard = () => {
                   </div>
                   <div className="bg-base-300/50 p-3 rounded">
                     <code className="text-xs break-all font-mono text-base-content">
-                      {apiBaseURL}/plugin/randomMemo/{pluginToken}
+                      {apiAbsoluteUrl(`/plugin/randomMemo/${pluginToken}`)}
                     </code>
                   </div>
                   <p className="text-xs text-base-content/60 mt-2">
