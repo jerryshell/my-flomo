@@ -1,6 +1,6 @@
 // 校验邮箱格式
 
-export const validateEmail = (email: string): boolean => {
+const validateEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };

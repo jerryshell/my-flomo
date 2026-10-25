@@ -2,9 +2,19 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="自托管的想法记录与回顾应用" />
     <link href="/src/favicon.svg" rel="icon" type="image/svg+xml" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>My Flomo</title>
+    <script>
+      try {
+        var mode = localStorage.getItem("theme") || "system";
+        var dark =
+          mode === "dark" ||
+          (mode === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.toggle("dark", dark);
+      } catch (error) {}
+    </script>
   </head>
 
   <body>

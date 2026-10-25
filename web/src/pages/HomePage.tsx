@@ -1,102 +1,40 @@
-import { useState } from "react";
-import MemoCreate from "../components/MemoCreate";
-import FlomoImport from "../components/FlomoImport";
-import CsvExport from "../components/CsvExport";
-import CsvImport from "../components/CsvImport";
-import DangerousArea from "../components/DangerousArea";
-import MemoList from "../components/MemoList";
-import UserSettingsCard from "../components/UserSettingsCard";
-import ServerStatus from "../components/ServerStatus";
-import ServerDetails from "../components/ServerDetails";
-import { useHealthCheck } from "../hooks/useHealthCheck";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import DataCard from "@/components/data/DataCard";
+import MemoComposer from "@/components/memo/MemoComposer";
+import MemoList from "@/components/memo/MemoList";
+import DangerZone from "@/components/settings/DangerZone";
+import SettingsCard from "@/components/settings/SettingsCard";
+import ServerStatus from "@/components/server/ServerStatus";
 
 interface HomePageProps {
-  fetchMemoList(): void;
+  refreshMemos: () => Promise<void>;
   logout: () => void;
 }
 
-const HomePage = (props: HomePageProps) => {
-  const { serverStatus, healthData } = useHealthCheck();
-  const [showDetails, setShowDetails] = useState(false);
+const HomePage = ({ refreshMemos, logout }: HomePageProps) => {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-        {/* === 左栏功能 === */}
-        <div className="xl:col-span-1 space-y-6">
-          <div className="card bg-base-100 shadow-lg border border-base-300/50">
-            <div className="card-body p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-3 h-3 bg-info rounded-full"></div>
-                <h2 className="card-title text-lg font-semibold">服务器状态</h2>
-              </div>
-              <ServerStatus
-                status={serverStatus}
-                healthData={healthData}
-                onToggleDetails={() => setShowDetails(!showDetails)}
-                showDetails={showDetails}
-              />
-              {showDetails && healthData && <ServerDetails healthData={healthData} />}
-            </div>
+    <div className="flex min-h-dvh flex-col">
+      <Header onLogout={logout} />
+
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 lg:py-8">
+        <h1 className="sr-only">My Flomo 想法</h1>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+          <div className="space-y-6">
+            <MemoComposer onCreated={refreshMemos} />
+            <MemoList />
           </div>
 
-          <div className="card bg-base-100 shadow-lg border border-base-300/50">
-            <div className="card-body p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-3 h-3 bg-success rounded-full"></div>
-                <h2 className="card-title text-lg font-semibold">记录想法</h2>
-              </div>
-              <MemoCreate fetchMemoList={props.fetchMemoList} />
-            </div>
-          </div>
-
-          <div className="card bg-base-100 shadow-lg border border-base-300/50">
-            <div className="card-body p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-3 h-3 bg-warning rounded-full"></div>
-                <h2 className="card-title text-lg font-semibold">数据管理</h2>
-              </div>
-              <div className="space-y-4">
-                <FlomoImport fetchMemoList={props.fetchMemoList} />
-                <CsvExport />
-                <CsvImport fetchMemoList={props.fetchMemoList} />
-              </div>
-            </div>
-          </div>
-
-          <div className="card bg-base-100 shadow-lg border border-base-300/50">
-            <div className="card-body p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-3 h-3 bg-primary rounded-full"></div>
-                <h2 className="card-title text-lg font-semibold">用户设置</h2>
-              </div>
-              <UserSettingsCard />
-            </div>
-          </div>
-
-          <div className="card bg-base-100 shadow-lg border-2 border-error">
-            <div className="card-body p-6">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-3 h-3 bg-error rounded-full"></div>
-                <h2 className="card-title text-lg font-semibold text-error">危险区域</h2>
-              </div>
-              <DangerousArea logout={props.logout} />
-            </div>
-          </div>
+          <aside className="space-y-6">
+            <ServerStatus />
+            <SettingsCard />
+            <DataCard onImported={refreshMemos} />
+            <DangerZone onDeleted={logout} />
+          </aside>
         </div>
+      </main>
 
-        {/* === 想法列表 === */}
-        <div className="xl:col-span-3">
-          <div className="card bg-base-100 shadow-lg border border-base-300/50">
-            <div className="card-body p-6">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-3 h-3 bg-secondary rounded-full"></div>
-                <h2 className="card-title text-xl font-semibold">我的想法</h2>
-              </div>
-              <MemoList />
-            </div>
-          </div>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 };

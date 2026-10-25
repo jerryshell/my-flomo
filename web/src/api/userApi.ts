@@ -1,6 +1,6 @@
 import { get, post } from "./api";
 
-export interface UserSettings {
+interface UserSettings {
   dailyReviewEnabled: boolean;
   telegramChatId: string;
   telegramBotToken: string;

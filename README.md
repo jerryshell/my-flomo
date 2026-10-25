@@ -15,7 +15,7 @@
 ## 技术栈
 
 - 后端：Go、Gin、GORM、SQLite、JWT、robfig cron、SMTP、Telegram Bot API、zap、embed
-- 前端：React、TypeScript、Vite、Jotai、React Router、原生 fetch、Tailwind CSS、daisyUI
+- 前端：React、TypeScript、Vite、Jotai、React Router、原生 fetch、Tailwind CSS、shadcn/ui、Radix UI、Lucide
 
 ## 项目结构
 
@@ -40,9 +40,12 @@ web/              # 前端源码
     ├── api/         # 接口封装
     ├── atoms/       # Jotai 状态
     ├── components/  # 组件
-    ├── hooks/       # 健康检查与弹窗
+    │   └── ui/      # shadcn/ui 基础组件
+    ├── hooks/       # 健康检查
     ├── interfaces/  # 类型定义
+    ├── lib/         # 类名工具
     ├── pages/       # 页面
+    ├── theme/       # 主题切换
     └── utils/       # 邮箱校验
 ```
 
@@ -108,7 +111,7 @@ bun install
 bun run dev
 ```
 
-Vite 将 `/auth`、`/memo`、`/plugin`、`/user`、`/upload`、`/deleteMyAccount`、`/csvExport`、`/health` 代理到 `http://localhost:8060`。`web/.env` 中的 `VITE_API_BASE_URL` 保持为空，接口使用同源相对路径。
+Vite 将 `/auth`、`/memo`、`/plugin`、`/user`、`/upload`、`/deleteMyAccount`、`/csvExport`、`/csvImport`、`/health` 代理到 `http://localhost:8060`。`web/.env` 中的 `VITE_API_BASE_URL` 保持为空，接口使用同源相对路径。
 
 ## 每日回顾
 

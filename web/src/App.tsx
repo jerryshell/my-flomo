@@ -1,19 +1,27 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Footer from "./components/Footer";
-import LoginPage from "./pages/LoginPage";
-import Header from "./components/Header";
-import memoApi from "./api/memoApi";
-import HomePage from "./pages/HomePage";
 import { useAtomValue, useSetAtom } from "jotai";
-import { atoms } from "./atoms/atoms";
+import { Loader2 } from "lucide-react";
+import { atoms } from "@/atoms/atoms";
+import memoApi from "@/api/memoApi";
+import NotFoundPage from "@/pages/NotFoundPage";
+import { Toaster } from "@/components/ui/sonner";
+
+const HomePage = lazy(() => import("@/pages/HomePage"));
+const LoginPage = lazy(() => import("@/pages/LoginPage"));
+
+const PageFallback = () => (
+  <div className="grid min-h-dvh place-items-center">
+    <Loader2 className="size-5 animate-spin text-muted-foreground" />
+    <span className="sr-only">加载中</span>
+  </div>
+);
 
 function App() {
   const token = useAtomValue(atoms.token);
   const setMemoList = useSetAtom(atoms.memoList);
   const setEmail = useSetAtom(atoms.email);
   const setToken = useSetAtom(atoms.token);
-
   const navigate = useNavigate();
 
   const logout = () => {
@@ -24,8 +32,8 @@ function App() {
     localStorage.removeItem("expiresAt");
   };
 
-  const fetchMemoList = () => {
-    return memoApi
+  const refreshMemos = () =>
+    memoApi
       .list()
       .then((response) => {
         if (response.success) {
@@ -35,55 +43,35 @@ function App() {
       .catch(() => {
         // 令牌失效时由请求层跳转登录页
       });
-  };
 
   useEffect(() => {
-    if (token) {
-      fetchMemoList().then(() => navigate("/home"));
-    } else {
+    if (!token) {
       navigate("/login");
+      return;
     }
+    refreshMemos().then(() => {
+      if (window.location.pathname === "/" || window.location.pathname === "/login") {
+        navigate("/home");
+      }
+    });
   }, [token]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-base-200">
-      {token && <Header logout={logout} />}
-
-      <main className="flex-1">
+    <>
+      <Suspense fallback={<PageFallback />}>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-
           {token && (
             <Route
               path="/home"
-              element={<HomePage fetchMemoList={fetchMemoList} logout={logout} />}
+              element={<HomePage refreshMemos={refreshMemos} logout={logout} />}
             />
           )}
-
-          <Route
-            path="*"
-            element={
-              <div className="hero min-h-screen">
-                <div className="hero-content text-center">
-                  <div className="max-w-md">
-                    <h1 className="text-5xl font-bold">404</h1>
-                    <p className="py-6">页面未找到</p>
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => navigate(token ? "/home" : "/login")}
-                    >
-                      返回首页
-                    </button>
-                  </div>
-                </div>
-              </div>
-            }
-          />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </main>
-
-      {token && <Footer />}
-    </div>
+      </Suspense>
+      <Toaster position="top-center" offset={{ top: 68 }} richColors closeButton />
+    </>
   );
 }
 

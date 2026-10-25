@@ -6,14 +6,14 @@ export const apiUrl = (path: string) => `${baseURL}${path}`;
 export const apiAbsoluteUrl = (path: string) =>
   new URL(apiUrl(path), window.location.origin).toString();
 
-export interface ApiResponse<T = unknown> {
+interface ApiResponse<T = unknown> {
   success: boolean;
   code: number;
   message: string;
   data: T;
 }
 
-export async function request<T>(path: string, init: RequestInit = {}): Promise<ApiResponse<T>> {
+async function request<T>(path: string, init: RequestInit = {}): Promise<ApiResponse<T>> {
   const token = localStorage.getItem("token");
   const headers = new Headers(init.headers);
 
