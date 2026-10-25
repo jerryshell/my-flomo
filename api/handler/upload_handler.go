@@ -13,8 +13,10 @@ import (
 	"github.com/jerryshell/my-flomo/api/service"
 )
 
+// loc Flomo 导出文件中的时间为 Asia/Shanghai
 var loc, _ = time.LoadLocation("Asia/Shanghai")
 
+// Upload 解析 Flomo 导出的 HTML，按 .memo 节点逐条写入
 func Upload(c *gin.Context) {
 	user := c.MustGet("user").(*model.User)
 
@@ -39,6 +41,7 @@ func Upload(c *gin.Context) {
 		}
 
 		doc.Find(".memo").Each(func(i int, memoElement *goquery.Selection) {
+			// 时间取 .time，内容取 .content 下的全部段落
 			timeElement := memoElement.Find(".time").First()
 			timeStr := strings.TrimSpace(timeElement.Text())
 			memoTime, err := time.ParseInLocation("2006-01-02 15:04:05", timeStr, loc)

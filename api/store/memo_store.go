@@ -8,6 +8,7 @@ import (
 	"github.com/jerryshell/my-flomo/api/util"
 )
 
+// MemoListByUserID 按创建时间倒序返回用户全部想法
 func MemoListByUserID(userID string) ([]model.Memo, error) {
 	var memoList []model.Memo
 	err := db.DB.Order("created_at desc").Where("user_id = ?", userID).Find(&memoList).Error
@@ -47,6 +48,7 @@ func MemoCreate(content string, userID string) (*model.Memo, error) {
 	return memo, err
 }
 
+// MemoCreateByTime 按指定时间创建，用于历史数据导入
 func MemoCreateByTime(content string, userID string, createdAt time.Time) (*model.Memo, error) {
 	logger := util.NewLogger("memo_store")
 
@@ -79,6 +81,7 @@ func MemoSave(memo *model.Memo) error {
 	return db.DB.Save(memo).Error
 }
 
+// MemoDeleteByID 软删除，记录保留在库中
 func MemoDeleteByID(id string) error {
 	return db.DB.Delete(&model.Memo{BaseModel: model.BaseModel{ID: id}}).Error
 }

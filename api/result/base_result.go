@@ -2,12 +2,15 @@ package result
 
 import "net/http"
 
+// BaseResult 统一响应结构，code 与 HTTP 状态码含义一致
 type BaseResult struct {
 	Success bool        `json:"success"`
 	Code    int         `json:"code"`
 	Message string      `json:"message"`
 	Data    interface{} `json:"data"`
 }
+
+// === 成功 ===
 
 func Success() *BaseResult {
 	return &BaseResult{
@@ -36,6 +39,8 @@ func SuccessWithDataAndMessage(data interface{}, message string) *BaseResult {
 	}
 }
 
+// === 失败 ===
+
 func Error() *BaseResult {
 	return &BaseResult{
 		Success: false,
@@ -54,11 +59,13 @@ func ErrorWithMessage(message string) *BaseResult {
 	}
 }
 
+// === 令牌错误 ===
+
 func TokenError() *BaseResult {
 	return &BaseResult{
 		Success: false,
 		Code:    http.StatusUnauthorized,
-		Message: "token 无效",
+		Message: "令牌无效",
 		Data:    nil,
 	}
 }

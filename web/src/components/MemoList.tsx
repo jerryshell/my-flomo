@@ -25,9 +25,8 @@ const MemoList = () => {
         <MemoKeywordFilter />
         <div className="card bg-base-100 shadow-lg">
           <div className="card-body text-center py-12">
-            <div className="text-6xl mb-4">📝</div>
             <h3 className="text-xl font-semibold mb-2">还没有想法</h3>
-            <p className="text-base-content/70">创建你的第一条想法开始记录吧！</p>
+            <p className="text-base-content/70">记录第一条想法，开始使用</p>
           </div>
         </div>
       </div>
@@ -40,9 +39,8 @@ const MemoList = () => {
         <MemoKeywordFilter />
         <div className="card bg-base-100 shadow-lg">
           <div className="card-body text-center py-12">
-            <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-xl font-semibold mb-2">没有找到匹配的想法</h3>
-            <p className="text-base-content/70">尝试使用不同的关键词进行搜索</p>
+            <p className="text-base-content/70">试试其他关键字</p>
           </div>
         </div>
       </div>

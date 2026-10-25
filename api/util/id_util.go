@@ -10,28 +10,27 @@ import (
 
 var sf *sonyflake.Sonyflake
 
+// GetMachineID 依次读取 MACHINE_ID 与主机名哈希，结果落在 0 至 1023
 func GetMachineID() (int, error) {
-	// 优先从环境变量获取机器ID
 	if machineIDStr := os.Getenv("MACHINE_ID"); machineIDStr != "" {
 		if machineID, err := strconv.Atoi(machineIDStr); err == nil && machineID >= 0 && machineID <= 1023 {
 			return machineID, nil
 		}
 	}
 
-	// 如果环境变量未设置或无效，尝试获取主机名哈希作为机器ID
 	hostname, err := os.Hostname()
 	if err != nil {
-		// 如果获取主机名失败，使用默认值0
 		return 0, nil
 	}
 
-	// 使用FNV-1a哈希算法生成稳定的机器ID
 	h := fnv.New32a()
 	h.Write([]byte(hostname))
-	machineID := int(h.Sum32() % 1024) // Sonyflake限制机器ID在0-1023范围内
+	machineID := int(h.Sum32() % 1024)
 
 	return machineID, nil
 }
+
+// === ID 生成 ===
 
 func init() {
 	var st = sonyflake.Settings{

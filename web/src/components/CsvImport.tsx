@@ -32,7 +32,7 @@ const CsvImport = (props: { fetchMemoList: () => void }) => {
         if (success) {
           props.fetchMemoList();
           showAlert({
-            message: "CSV导入成功！",
+            message: "导入成功",
             type: "success",
             duration: 2000,
           });
@@ -45,9 +45,9 @@ const CsvImport = (props: { fetchMemoList: () => void }) => {
         }
       })
       .catch((e) => {
-        console.log(e);
+        console.error("CSV 导入失败", e);
         showAlert({
-          message: "CSV导入失败，请检查文件格式",
+          message: "导入失败，请检查文件格式",
           type: "error",
           duration: 3000,
         });
@@ -62,7 +62,7 @@ const CsvImport = (props: { fetchMemoList: () => void }) => {
     <>
       <div className="space-y-2">
         <h4 className="font-semibold">CSV 导入</h4>
-        <p className="text-sm text-base-content/70">从 CSV 文件导入想法数据</p>
+        <p className="text-sm text-base-content/70">从 CSV 文件导入想法</p>
 
         <div className="form-control">
           <input
@@ -79,14 +79,14 @@ const CsvImport = (props: { fetchMemoList: () => void }) => {
           />
         </div>
 
-        {csvFile && <div className="text-sm text-success">已选择文件: {csvFile.name}</div>}
+        {csvFile && <div className="text-sm text-success">已选择文件：{csvFile.name}</div>}
 
         <button
           className="btn btn-primary btn-sm"
           onClick={handleCsvImportBtnClick}
           disabled={!csvFile || isLoading}
         >
-          {isLoading ? <span className="loading loading-spinner"></span> : "提交导入"}
+          {isLoading ? <span className="loading loading-spinner"></span> : "导入"}
         </button>
       </div>
 

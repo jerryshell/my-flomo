@@ -2,6 +2,7 @@ package config
 
 import "github.com/caarlos0/env/v11"
 
+// Config 汇总全部环境变量，缺省值见 envDefault 标签
 type Config struct {
 	Host         string `json:"host" env:"HOST" envDefault:"localhost"`
 	Port         int    `json:"port" env:"PORT" envDefault:"8060"`

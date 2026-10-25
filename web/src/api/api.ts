@@ -4,6 +4,7 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
+// 请求统一附带登录令牌
 api.interceptors.request.use(async (config) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -12,6 +13,7 @@ api.interceptors.request.use(async (config) => {
   return config;
 });
 
+// 令牌失效时清除本地登录态并回到登录页
 api.interceptors.response.use(async (response) => {
   const token = localStorage.getItem("token");
   if (response.data.code === 401 && token) {

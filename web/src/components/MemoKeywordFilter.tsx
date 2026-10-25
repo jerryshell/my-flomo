@@ -9,7 +9,7 @@ const MemoKeywordFilter = () => {
       <div className="card-body p-6">
         <div className="flex items-center space-x-3 mb-4">
           <div className="w-3 h-3 bg-primary rounded-full"></div>
-          <h3 className="card-title text-lg font-semibold">关键字模糊筛选</h3>
+          <h3 className="card-title text-lg font-semibold">按关键字筛选</h3>
         </div>
 
         <div className="form-control">
@@ -17,7 +17,7 @@ const MemoKeywordFilter = () => {
             <div className="relative flex-1">
               <input
                 type="text"
-                placeholder="输入关键字，多个关键字使用空格分割"
+                placeholder="输入关键字"
                 className="input input-bordered w-full pl-10 pr-4 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
                 value={memoKeyword}
                 onChange={(e) => setMemoKeyword(e.target.value)}
@@ -49,6 +49,7 @@ const MemoKeywordFilter = () => {
               重置
             </button>
           </div>
+          <div className="text-xs text-base-content/50 mt-2">多个关键字用空格分隔</div>
         </div>
 
         {memoKeyword && (
@@ -66,7 +67,7 @@ const MemoKeywordFilter = () => {
                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            <span>当前筛选关键字:</span>
+            <span>当前关键字：</span>
             <span className="font-medium text-primary">{memoKeyword}</span>
           </div>
         )}

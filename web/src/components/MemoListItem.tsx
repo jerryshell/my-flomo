@@ -49,9 +49,6 @@ const MemoListItem = (props: { memo: Memo }) => {
         setMemoList(memoList.filter((item) => item.id !== id));
         memoApi
           .deleteById(id)
-          .then((response) => {
-            console.log("delete memo response", response);
-          })
           .finally(() => {
             setIsLoading(false);
           });
@@ -168,7 +165,7 @@ const MemoListItem = (props: { memo: Memo }) => {
                 className="textarea textarea-bordered w-full h-32 text-base leading-relaxed resize-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors"
                 value={memo.content}
                 onChange={handleTextareaChange}
-                placeholder="编辑想法内容..."
+                placeholder="编辑想法内容"
               />
             ) : (
               <p className="whitespace-pre-wrap text-base leading-relaxed text-base-content/90 bg-base-200/50 rounded-lg p-4">

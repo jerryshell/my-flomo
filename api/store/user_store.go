@@ -12,6 +12,7 @@ func UserListByEmailIsNotNull() ([]model.User, error) {
 	return userList, err
 }
 
+// UserListWithTelegramConfig 返回同时填写 Chat ID 与 Bot Token 的用户
 func UserListWithTelegramConfig() ([]model.User, error) {
 	var userList []model.User
 	err := db.DB.Where("telegram_chat_id != '' AND telegram_bot_token != ''").Order("created_at desc").Find(&userList).Error

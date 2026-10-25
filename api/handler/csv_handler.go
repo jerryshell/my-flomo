@@ -14,6 +14,7 @@ import (
 	"github.com/jerryshell/my-flomo/api/util"
 )
 
+// CsvExport 导出用户全部想法，列顺序与导入一致
 func CsvExport(c *gin.Context) {
 	token := c.Param("token")
 	if token == "" {
@@ -50,20 +51,16 @@ func CsvExport(c *gin.Context) {
 		return
 	}
 
-	// csv buffer
 	bytesBuffer := &bytes.Buffer{}
-
-	// csv writer
 	csvWriter := csv.NewWriter(bytesBuffer)
 
-	// csv header
 	if err := csvWriter.Write([]string{"ID", "CreatedAt", "UpdatedAt", "Content"}); err != nil {
 		log.Println("csvWriter.Write :: err", err)
 		c.JSON(http.StatusOK, result.ErrorWithMessage(err.Error()))
 		return
 	}
 
-	// csv data
+	// 单行写入失败时跳过该行
 	for _, memo := range memoList {
 		if err := csvWriter.Write([]string{
 			memo.ID,
@@ -82,6 +79,7 @@ func CsvExport(c *gin.Context) {
 	c.Data(http.StatusOK, "text/csv", bytesBuffer.Bytes())
 }
 
+// CsvImport 从 CSV 导入想法，时间按 Asia/Shanghai 解析
 func CsvImport(c *gin.Context) {
 	user := c.MustGet("user").(*model.User)
 
@@ -114,7 +112,7 @@ func CsvImport(c *gin.Context) {
 		return
 	}
 
-	// remove header
+	// 第一行为表头，跳过
 	recordList = recordList[1:]
 
 	for _, record := range recordList {

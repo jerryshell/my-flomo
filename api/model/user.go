@@ -1,5 +1,6 @@
 package model
 
+// User 账户与每日回顾配置，密码不返回给前端
 type User struct {
 	BaseModel
 	Password           string `json:"-"`

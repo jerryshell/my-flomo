@@ -7,6 +7,7 @@ import (
 	"github.com/jerryshell/my-flomo/api/util"
 )
 
+// Register 邮箱不存在时创建账户
 func Register(email, password string) (*model.User, error) {
 	logger := util.NewLogger("auth_service")
 

@@ -8,6 +8,7 @@ import (
 	"github.com/jerryshell/my-flomo/api/config"
 )
 
+// VerifyToken 校验签名与有效期，返回 JWT 声明
 func VerifyToken(tokenString string) (jwt.MapClaims, error) {
 	logger := NewLogger("jwt_util")
 
@@ -24,19 +25,20 @@ func VerifyToken(tokenString string) (jwt.MapClaims, error) {
 	}
 	if !token.Valid {
 		logger.Warn("invalid jwt token")
-		return nil, errors.New("token无效")
+		return nil, errors.New("令牌无效")
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
 		logger.Warn("invalid token claims type")
-		return nil, errors.New("无效的token声明")
+		return nil, errors.New("无效的令牌声明")
 	}
 
 	logger.Debug("jwt token verified successfully")
 	return claims, nil
 }
 
+// GetEmailFromJWT 从 sub 声明读取登录邮箱
 func GetEmailFromJWT(token string) (string, error) {
 	mapClaims, err := VerifyToken(token)
 	if err != nil {
@@ -44,7 +46,7 @@ func GetEmailFromJWT(token string) (string, error) {
 	}
 	email, ok := mapClaims["sub"].(string)
 	if !ok {
-		return "", errors.New("无效的subject声明")
+		return "", errors.New("无效的令牌主体")
 	}
 	return email, nil
 }

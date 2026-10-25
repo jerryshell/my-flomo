@@ -31,9 +31,9 @@ const DangerousArea = (props: { logout: () => void }) => {
         }
       })
       .catch((error) => {
-        console.error("删除账号失败", error);
+        console.error("注销账号失败", error);
         showAlert({
-          message: "删除账号失败，请重试",
+          message: "注销账号失败，请重试",
           type: "error",
           duration: 3000,
         });
@@ -49,7 +49,7 @@ const DangerousArea = (props: { logout: () => void }) => {
       <div className="space-y-3">
         {showConfirm ? (
           <div className="space-y-2">
-            <p className="text-sm text-error font-medium">确定要删除账号吗？此操作不可逆！</p>
+            <p className="text-sm text-error font-medium">账户与全部想法将被永久删除，此操作不可恢复</p>
             <div className="flex gap-2">
               <button
                 className="btn btn-error btn-sm"
@@ -69,7 +69,7 @@ const DangerousArea = (props: { logout: () => void }) => {
           </div>
         ) : (
           <button className="btn btn-error btn-outline btn-sm w-full" onClick={deleteMyAccount}>
-            账号注销（永久抹除数据，无法恢复）
+            注销账号（删除全部数据，无法恢复）
           </button>
         )}
       </div>

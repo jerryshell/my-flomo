@@ -10,7 +10,7 @@ import (
 	"github.com/jerryshell/my-flomo/api/result"
 )
 
-// buildInfo 缓存构建信息，避免每次请求都读取
+// buildInfo 启动时读取一次构建信息，避免每次请求重复读取
 var buildInfo = struct {
 	commit    string
 	goVersion string
@@ -20,10 +20,9 @@ var buildInfo = struct {
 	initTime: time.Now(),
 }
 
-// init 在包初始化时读取构建信息
+// init 从 Go 构建信息中读取提交号与构建时间
 func init() {
 	if info, ok := debug.ReadBuildInfo(); ok {
-		// 获取提交哈希
 		for _, setting := range info.Settings {
 			switch setting.Key {
 			case "vcs.revision":
@@ -36,18 +35,16 @@ func init() {
 	}
 }
 
-// getBuildMode 检测当前运行模式
+// getBuildMode 无提交号时视为 go run 运行
 func getBuildMode() string {
-	// 如果没有commit信息，很可能是使用go run运行的
 	if buildInfo.commit == "" {
 		return "development (go run)"
 	}
 
-	// 检查是否是调试模式
+	// 有 ldflags 时视为正式构建
 	if info, ok := debug.ReadBuildInfo(); ok {
 		for _, setting := range info.Settings {
 			if setting.Key == "-ldflags" {
-				// 如果有ldflags，说明是正式构建
 				return "release"
 			}
 		}
@@ -56,13 +53,11 @@ func getBuildMode() string {
 	return "unknown"
 }
 
-// Health 处理健康检查请求，返回服务器状态信息
+// Health 返回服务状态、版本、运行时与内存信息
 func Health(c *gin.Context) {
-	// 获取运行时信息
 	var m runtime.MemStats
 	runtime.ReadMemStats(&m)
 
-	// 构建响应数据
 	data := gin.H{
 		"status":    "healthy",
 		"timestamp": time.Now().Unix(),

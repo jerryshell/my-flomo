@@ -9,7 +9,7 @@ const Header = ({ logout }: HeaderProps) => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    // 从 localStorage 获取保存的主题，如果没有则使用操作系统偏好
+    // 优先读取本地主题，没有记录时跟随系统
     const savedTheme =
       localStorage.getItem("theme") ||
       (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
@@ -34,7 +34,7 @@ const Header = ({ logout }: HeaderProps) => {
       </div>
 
       <div className="navbar-end">
-        <button className="btn btn-ghost btn-circle" onClick={toggleTheme}>
+        <button className="btn btn-ghost btn-circle" onClick={toggleTheme} title="切换主题" aria-label="切换主题">
           {theme === "light" ? (
             <svg
               className="w-6 h-6 fill-current"
@@ -63,7 +63,7 @@ const Header = ({ logout }: HeaderProps) => {
               d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
             />
           </svg>
-          登出
+          退出登录
         </button>
       </div>
     </div>

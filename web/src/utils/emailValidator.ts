@@ -1,16 +1,12 @@
-/**
- * Email格式验证工具函数
- * 验证email格式是否符合标准
- */
+// 校验邮箱格式
+
 export const validateEmail = (email: string): boolean => {
-  // 基本的email格式正则表达式
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
 
-/**
- * 获取email验证的错误信息
- */
+// 返回校验结果，空字符串表示通过
+
 export const getEmailValidationMessage = (email: string): string => {
   if (!email || email.trim().length === 0) {
     return "邮箱不能为空";

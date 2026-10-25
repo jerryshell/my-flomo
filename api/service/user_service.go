@@ -11,6 +11,8 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// === 查询 ===
+
 func UserListByEmailIsNotNull() ([]model.User, error) {
 	return store.UserListByEmailIsNotNull()
 }
@@ -23,10 +25,11 @@ func UserGetByEmail(email string) (*model.User, error) {
 	return store.UserGetByEmail(email)
 }
 
+// === 创建与更新 ===
+
 func UserCreate(email string, password string) (*model.User, error) {
 	logger := util.NewLogger("user_service")
 
-	// 对密码进行bcrypt加密
 	passwordBcrypt, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		logger.Error("failed to generate password hash", util.ErrorField(err))
@@ -53,7 +56,7 @@ func UserUpdatePassword(userID string, password string) (*model.User, error) {
 	}
 	if user.ID == "" {
 		logger.Warn("user not found", util.StringField("user_id", userID))
-		return nil, errors.New("找不到 user，id: " + userID)
+		return nil, errors.New("未找到对应用户")
 	}
 
 	passwordBcrypt, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
@@ -86,15 +89,14 @@ func UserUpdatePluginToken(userID string) (*model.User, error) {
 	}
 	if user.ID == "" {
 		logger.Warn("user not found", util.StringField("user_id", userID))
-		return nil, errors.New("找不到 user，id: " + userID)
+		return nil, errors.New("未找到对应用户")
 	}
 
-	// 定义字符集：小写字母、大写字母和数字
+	// 令牌由 32 位字母与数字组成
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	tokenLength := 32
 	token := make([]byte, tokenLength)
 
-	// 生成只包含字母和数字的随机令牌
 	for i := range token {
 		randomIndex, gen_err := rand.Int(rand.Reader, big.NewInt(int64(len(charset))))
 		if gen_err != nil {
@@ -125,7 +127,7 @@ func UserGetSettings(userID string) (*model.User, error) {
 	}
 	if user.ID == "" {
 		logger.Warn("user not found", util.StringField("user_id", userID))
-		return nil, errors.New("找不到 user，id: " + userID)
+		return nil, errors.New("未找到对应用户")
 	}
 
 	logger.Debug("user settings retrieved successfully", util.StringField("user_id", userID), util.BoolField("daily_review_enabled", user.DailyReviewEnabled))
@@ -142,7 +144,7 @@ func UserUpdateSettings(userID string, dailyReviewEnabled bool, telegramChatID s
 	}
 	if user.ID == "" {
 		logger.Warn("user not found", util.StringField("user_id", userID))
-		return nil, errors.New("找不到 user，id: " + userID)
+		return nil, errors.New("未找到对应用户")
 	}
 
 	user.DailyReviewEnabled = dailyReviewEnabled

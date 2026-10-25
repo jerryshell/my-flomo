@@ -13,13 +13,13 @@ import (
 )
 
 func main() {
-	// cron
+	// === 定时任务 ===
 	initCron()
 
-	// gin app
+	// === HTTP 服务 ===
 	app := gin.Default()
 
-	// cors
+	// 允许全部来源与请求头，适合本机或内网自托管
 	app.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"*"},
@@ -27,13 +27,12 @@ func main() {
 		AllowCredentials: true,
 	}))
 
-	// route setup
 	route.Setup(app)
 
-	// run
 	_ = app.Run(config.Data.Host + ":" + strconv.Itoa(config.Data.Port))
 }
 
+// initCron 按 CRON_SPEC 触发每日回顾，默认每天 20:00
 func initCron() {
 	logger := util.NewLogger("cron")
 

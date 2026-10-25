@@ -12,6 +12,7 @@ import (
 	"github.com/jerryshell/my-flomo/api/util"
 )
 
+// MemoList 返回当前用户全部想法
 func MemoList(c *gin.Context) {
 	logger := util.NewLogger("memo_handler")
 
@@ -27,6 +28,7 @@ func MemoList(c *gin.Context) {
 	c.JSON(http.StatusOK, result.SuccessWithData(memoList))
 }
 
+// MemoCreate 内容去空格后入库，空内容拒绝
 func MemoCreate(c *gin.Context) {
 	logger := util.NewLogger("memo_handler")
 
@@ -57,6 +59,7 @@ func MemoCreate(c *gin.Context) {
 	c.JSON(http.StatusOK, result.SuccessWithData(memo))
 }
 
+// MemoUpdate 按 ID 更新想法内容
 func MemoUpdate(c *gin.Context) {
 	logger := util.NewLogger("memo_handler")
 
@@ -78,6 +81,7 @@ func MemoUpdate(c *gin.Context) {
 	c.JSON(http.StatusOK, result.SuccessWithData(memo))
 }
 
+// MemoDeleteByID 删除单条想法
 func MemoDeleteByID(c *gin.Context) {
 	logger := util.NewLogger("memo_handler")
 
@@ -92,6 +96,7 @@ func MemoDeleteByID(c *gin.Context) {
 	c.JSON(http.StatusOK, result.Success())
 }
 
+// MemoDailyReview 手动触发一次每日回顾，与定时任务共用逻辑
 func MemoDailyReview(c *gin.Context) {
 	logger := util.NewLogger("memo_handler")
 

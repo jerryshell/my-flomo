@@ -6,36 +6,30 @@ import { useAlert } from "../hooks/useModal";
 import Alert from "./Alert";
 
 const UserSettingsCard = () => {
-  // 密码更新状态
+  // === 状态 ===
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
   const [passwordLoading, setPasswordLoading] = useState(false);
 
-  // 用户偏好设置状态
   const [dailyReviewEnabled, setDailyReviewEnabled] = useState(false);
   const [preferencesLoading, setPreferencesLoading] = useState(false);
 
-  // Telegram Bot 配置状态
   const [telegramChatId, setTelegramChatId] = useState("");
   const [telegramBotToken, setTelegramBotToken] = useState("");
   const [testing, setTesting] = useState(false);
 
-  // 插件令牌状态
   const [pluginToken, setPluginToken] = useState("");
   const [tokenLoading, setTokenLoading] = useState(false);
 
   const { alertOpen, alertConfig, showAlert, hideAlert } = useAlert();
 
-  // 初始化数据
   useEffect(() => {
-    // 获取插件令牌
     pluginApi.getToken().then((response) => {
       if (response.data.success) {
         setPluginToken(response.data.data);
       }
     });
 
-    // 获取用户设置
     userApi
       .getSettings()
       .then((response) => {
@@ -48,14 +42,12 @@ const UserSettingsCard = () => {
       })
       .catch((error) => {
         console.error("获取用户设置失败", error);
-        // 如果获取失败，使用默认值
         setDailyReviewEnabled(false);
         setTelegramChatId("");
         setTelegramBotToken("");
       });
   }, []);
 
-  // 更新密码
   const handleUpdatePassword = () => {
     if (newPassword !== newPassword2) {
       showAlert({
@@ -70,7 +62,7 @@ const UserSettingsCard = () => {
 
     if (newPassword.length < 6) {
       showAlert({
-        message: "密码长度不能少于6位",
+        message: "密码长度不能少于 6 位",
         type: "warning",
         duration: 3000,
       });
@@ -110,7 +102,6 @@ const UserSettingsCard = () => {
       });
   };
 
-  // 更新偏好设置
   const handleUpdatePreferences = () => {
     setPreferencesLoading(true);
     userApi
@@ -122,7 +113,7 @@ const UserSettingsCard = () => {
       .then((response) => {
         if (response.data.success) {
           showAlert({
-            message: "偏好设置已保存！",
+            message: "偏好设置已保存",
             type: "success",
             duration: 2000,
           });
@@ -147,7 +138,6 @@ const UserSettingsCard = () => {
       });
   };
 
-  // 测试每日回顾
   const handleTestDailyReview = async () => {
     setTesting(true);
     try {
@@ -155,7 +145,7 @@ const UserSettingsCard = () => {
 
       if (response.data.success) {
         showAlert({
-          message: "每日回顾测试已触发！",
+          message: "每日回顾测试已触发",
           type: "success",
           duration: 3000,
         });
@@ -178,7 +168,6 @@ const UserSettingsCard = () => {
     }
   };
 
-  // 生成插件令牌
   const handleGenerateToken = () => {
     setTokenLoading(true);
     pluginApi
@@ -187,7 +176,7 @@ const UserSettingsCard = () => {
         if (response.data.success) {
           setPluginToken(response.data.data);
           showAlert({
-            message: "令牌生成成功",
+            message: "插件令牌已生成",
             type: "success",
             duration: 2000,
           });
@@ -215,7 +204,7 @@ const UserSettingsCard = () => {
   return (
     <>
       <div className="space-y-6">
-        {/* 密码更新部分 */}
+        {/* === 密码 === */}
         <section>
           <h3 className="font-semibold text-lg mb-4 pb-2 border-b border-base-300">密码设置</h3>
           <div className="space-y-3">
@@ -253,11 +242,10 @@ const UserSettingsCard = () => {
           </div>
         </section>
 
-        {/* 用户偏好设置 */}
+        {/* === 偏好设置 === */}
         <section>
           <h3 className="font-semibold text-lg mb-4 pb-2 border-b border-base-300">偏好设置</h3>
           <div className="space-y-4">
-            {/* 开启每日回顾开关 */}
             <div className="form-control">
               <label className="label cursor-pointer justify-start gap-3">
                 <input
@@ -270,12 +258,11 @@ const UserSettingsCard = () => {
               </label>
               {dailyReviewEnabled && (
                 <div className="text-xs text-base-content/50 mt-1 ml-9">
-                  开启后会在指定时间随机发送一条 Memo 到邮箱
+                  开启后按定时任务随机发送一条想法到邮箱或 Telegram
                 </div>
               )}
             </div>
 
-            {/* Telegram Bot 配置 */}
             <div
               className={`space-y-3 transition-all duration-300 ${
                 dailyReviewEnabled ? "opacity-100 max-h-96" : "opacity-50 max-h-0 overflow-hidden"
@@ -344,15 +331,11 @@ const UserSettingsCard = () => {
               {preferencesLoading ? (
                 <span className="loading loading-spinner"></span>
               ) : (
-                "保存偏好设置"
+                "保存设置"
               )}
             </button>
 
-            {/* 测试按钮 */}
             <div className="form-control">
-              <div className="text-xs text-base-content/50 mb-2 text-center">
-                💡 测试前请先保存设置以确保配置生效
-              </div>
               <button
                 className="btn btn-outline btn-sm w-full"
                 onClick={handleTestDailyReview}
@@ -360,18 +343,17 @@ const UserSettingsCard = () => {
               >
                 {testing ? <span className="loading loading-spinner"></span> : "测试每日回顾"}
               </button>
-              <div className="text-xs text-base-content/50 mt-1">点击测试按钮立刻触发每日回顾</div>
+              <div className="text-xs text-base-content/50 mt-1">测试前先保存设置，点击后立即发送一条随机想法</div>
             </div>
           </div>
         </section>
 
-        {/* 插件接口 */}
+        {/* === 插件接口 === */}
         <section>
           <h3 className="font-semibold text-lg mb-4 pb-2 border-b border-base-300">插件接口</h3>
           <div className="space-y-4">
             {pluginToken ? (
               <div className="space-y-3">
-                {/* 新增记录接口 */}
                 <div className="bg-base-200 p-4 rounded-lg border border-base-300">
                   <div className="flex items-center justify-between mb-2">
                     <p className="text-sm font-medium text-base-content">新增记录接口</p>
@@ -382,7 +364,7 @@ const UserSettingsCard = () => {
                           `${api.defaults.baseURL}/plugin/createMemo/${pluginToken}`,
                         );
                         showAlert({
-                          message: "接口地址已复制到剪贴板",
+                          message: "接口地址已复制",
                           type: "success",
                           duration: 2000,
                         });
@@ -412,11 +394,10 @@ const UserSettingsCard = () => {
                     </code>
                   </div>
                   <p className="text-xs text-base-content/60 mt-2">
-                    POST 请求，用于通过插件创建新的 Memo 记录
+                    POST 请求，通过插件创建一条想法
                   </p>
                 </div>
 
-                {/* 随机获取接口 */}
                 <div className="bg-base-200 p-4 rounded-lg border border-base-300">
                   <div className="flex items-center justify-between mb-2">
                     <p className="text-sm font-medium text-base-content">随机获取接口</p>
@@ -427,7 +408,7 @@ const UserSettingsCard = () => {
                           `${api.defaults.baseURL}/plugin/randomMemo/${pluginToken}`,
                         );
                         showAlert({
-                          message: "接口地址已复制到剪贴板",
+                          message: "接口地址已复制",
                           type: "success",
                           duration: 2000,
                         });
@@ -457,14 +438,13 @@ const UserSettingsCard = () => {
                     </code>
                   </div>
                   <p className="text-xs text-base-content/60 mt-2">
-                    GET 请求，用于通过插件随机获取一条 Memo 记录
+                    GET 请求，随机返回一条想法
                   </p>
                 </div>
 
-                {/* 令牌信息 */}
                 <div className="bg-base-200/50 p-3 rounded border border-base-300/50">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-base-content/60">当前令牌:</span>
+                    <span className="text-xs text-base-content/60">当前令牌：</span>
                     <div className="flex items-center gap-2">
                       <code className="text-xs font-mono bg-base-300/30 px-2 py-1 rounded">
                         {pluginToken.substring(0, 8)}...
@@ -474,7 +454,7 @@ const UserSettingsCard = () => {
                         onClick={() => {
                           navigator.clipboard.writeText(pluginToken);
                           showAlert({
-                            message: "插件令牌已复制到剪贴板",
+                            message: "令牌已复制",
                             type: "success",
                             duration: 2000,
                           });
@@ -517,7 +497,7 @@ const UserSettingsCard = () => {
                   />
                 </svg>
                 <p className="text-sm text-base-content/60 mb-4">
-                  尚未生成插件令牌，点击下方按钮创建
+                  尚未生成插件令牌
                 </p>
               </div>
             )}

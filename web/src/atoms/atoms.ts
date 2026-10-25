@@ -1,6 +1,7 @@
 import { atom } from "recoil";
 import Memo from "../interfaces/Memo";
 
+// 登录态与列表状态的全局原子
 export const atoms = {
   token: atom({
     key: "token",

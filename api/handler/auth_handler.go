@@ -14,6 +14,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// LoginOrRegister 校验邮箱与密码，邮箱未注册时自动创建账户
 func LoginOrRegister(c *gin.Context) {
 	logger := util.NewLogger("auth_handler")
 
@@ -24,7 +25,6 @@ func LoginOrRegister(c *gin.Context) {
 		return
 	}
 
-	// 验证email格式
 	if emailValidationMessage := util.GetEmailValidationMessage(formData.Email); emailValidationMessage != "" {
 		logger.Warn("invalid email format provided", util.StringField("email", formData.Email))
 		c.JSON(http.StatusOK, result.ErrorWithMessage(emailValidationMessage))
@@ -51,7 +51,7 @@ func LoginOrRegister(c *gin.Context) {
 	}
 
 	now := time.Now()
-	expiresAt := now.Add(time.Hour * 24 * 7)
+	expiresAt := now.Add(time.Hour * 24 * 7) // 有效期 7 天
 	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.RegisteredClaims{
 		IssuedAt:  jwt.NewNumericDate(now),
 		Issuer:    "my-flomo-server",
@@ -72,6 +72,7 @@ func LoginOrRegister(c *gin.Context) {
 	}))
 }
 
+// VerifyToken 校验令牌并返回邮箱
 func VerifyToken(c *gin.Context) {
 	logger := util.NewLogger("auth_handler")
 
@@ -86,7 +87,7 @@ func VerifyToken(c *gin.Context) {
 	email, ok := mapClaims["sub"].(string)
 	if !ok {
 		logger.Warn("invalid subject claim in token")
-		c.JSON(http.StatusOK, result.ErrorWithMessage("无效的token声明"))
+		c.JSON(http.StatusOK, result.ErrorWithMessage("无效的令牌声明"))
 		return
 	}
 

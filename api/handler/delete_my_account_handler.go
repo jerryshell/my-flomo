@@ -9,11 +9,10 @@ import (
 	"github.com/jerryshell/my-flomo/api/result"
 )
 
+// DeleteMyAccount 物理删除当前用户的想法与账户，软删除记录也不保留
 func DeleteMyAccount(c *gin.Context) {
 	user := c.MustGet("user").(*model.User)
-	// remove memo
 	db.DB.Unscoped().Delete(model.Memo{}, "user_id = ?", user.ID)
-	// remove user
 	db.DB.Unscoped().Delete(model.User{}, "id = ?", user.ID)
-	c.JSON(http.StatusOK, result.SuccessWithDataAndMessage(nil, "此账户数据已被毫无痕迹的永久抹除！👋"))
+	c.JSON(http.StatusOK, result.SuccessWithDataAndMessage(nil, "账户及全部数据已永久删除"))
 }

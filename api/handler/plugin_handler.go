@@ -12,6 +12,7 @@ import (
 	"github.com/jerryshell/my-flomo/api/service"
 )
 
+// PluginTokenGet 返回当前插件令牌
 func PluginTokenGet(c *gin.Context) {
 	user := c.MustGet("user").(*model.User)
 
@@ -23,7 +24,7 @@ func PluginTokenGet(c *gin.Context) {
 	c.JSON(http.StatusOK, result.SuccessWithData(user.PluginToken))
 }
 
-// PluginTokenCreate 这里是兼容 flomo 生态的接口
+// PluginTokenCreate 兼容 Flomo 插件接口，重新生成令牌
 func PluginTokenCreate(c *gin.Context) {
 	user := c.MustGet("user").(*model.User)
 
@@ -37,14 +38,14 @@ func PluginTokenCreate(c *gin.Context) {
 	c.JSON(http.StatusOK, result.SuccessWithData(user.PluginToken))
 }
 
-// PluginTokenCreateMemo 这里是兼容 flomo 生态的接口
+// PluginTokenCreateMemo 兼容 Flomo 插件接口，用令牌写入想法
 func PluginTokenCreateMemo(c *gin.Context) {
 	token := c.Param("pluginToken")
 	if token == "" {
 		c.JSON(http.StatusOK, result.BaseResult{
 			Code:    -1,
 			Success: false,
-			Message: "pluginToken 为空",
+			Message: "插件令牌为空",
 		})
 		return
 	}
@@ -55,7 +56,7 @@ func PluginTokenCreateMemo(c *gin.Context) {
 		c.JSON(http.StatusOK, result.BaseResult{
 			Code:    -1,
 			Success: false,
-			Message: "token 无效",
+			Message: "令牌无效",
 		})
 		return
 	}
@@ -100,14 +101,14 @@ func PluginTokenCreateMemo(c *gin.Context) {
 	})
 }
 
-// PluginTokenRandomMemo 这里是 my-flomo 随机一条接口
+// PluginTokenRandomMemo 用令牌随机返回一条想法
 func PluginTokenRandomMemo(c *gin.Context) {
 	token := c.Param("pluginToken")
 	if token == "" {
 		c.JSON(http.StatusOK, result.BaseResult{
 			Code:    -1,
 			Success: false,
-			Message: "pluginToken 为空",
+			Message: "插件令牌为空",
 		})
 		return
 	}
@@ -118,7 +119,7 @@ func PluginTokenRandomMemo(c *gin.Context) {
 		c.JSON(http.StatusOK, result.BaseResult{
 			Code:    -1,
 			Success: false,
-			Message: "token 无效",
+			Message: "令牌无效",
 		})
 		return
 	}
@@ -129,7 +130,7 @@ func PluginTokenRandomMemo(c *gin.Context) {
 		c.JSON(http.StatusOK, result.BaseResult{
 			Code:    -1,
 			Success: false,
-			Message: "获取失败",
+			Message: "获取想法失败",
 		})
 		return
 	}

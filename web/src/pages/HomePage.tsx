@@ -21,9 +21,8 @@ const HomePage = (props: HomePageProps) => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-        {/* 左侧功能区域 */}
+        {/* === 左栏功能 === */}
         <div className="xl:col-span-1 space-y-6">
-          {/* 服务器状态卡片 */}
           <div className="card bg-base-100 shadow-lg border border-base-300/50">
             <div className="card-body p-6">
               <div className="flex items-center space-x-3 mb-4">
@@ -40,7 +39,6 @@ const HomePage = (props: HomePageProps) => {
             </div>
           </div>
 
-          {/* 记录想法卡片 */}
           <div className="card bg-base-100 shadow-lg border border-base-300/50">
             <div className="card-body p-6">
               <div className="flex items-center space-x-3 mb-4">
@@ -51,7 +49,6 @@ const HomePage = (props: HomePageProps) => {
             </div>
           </div>
 
-          {/* 导入导出卡片 */}
           <div className="card bg-base-100 shadow-lg border border-base-300/50">
             <div className="card-body p-6">
               <div className="flex items-center space-x-3 mb-4">
@@ -66,7 +63,6 @@ const HomePage = (props: HomePageProps) => {
             </div>
           </div>
 
-          {/* 用户设置卡片 */}
           <div className="card bg-base-100 shadow-lg border border-base-300/50">
             <div className="card-body p-6">
               <div className="flex items-center space-x-3 mb-4">
@@ -77,7 +73,6 @@ const HomePage = (props: HomePageProps) => {
             </div>
           </div>
 
-          {/* 危险区域卡片 */}
           <div className="card bg-base-100 shadow-lg border-2 border-error">
             <div className="card-body p-6">
               <div className="flex items-center space-x-3 mb-4">
@@ -89,7 +84,7 @@ const HomePage = (props: HomePageProps) => {
           </div>
         </div>
 
-        {/* 右侧想法列表 */}
+        {/* === 想法列表 === */}
         <div className="xl:col-span-3">
           <div className="card bg-base-100 shadow-lg border border-base-300/50">
             <div className="card-body p-6">

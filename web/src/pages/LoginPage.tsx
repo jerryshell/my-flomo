@@ -10,7 +10,7 @@ import Alert from "../components/Alert";
 const Logging = () => (
   <button className="btn btn-primary w-full" disabled>
     <span className="loading loading-spinner"></span>
-    登录中...
+    登录中
   </button>
 );
 
@@ -60,7 +60,7 @@ const LoginPage = () => {
         handleLoginSuccess(data);
       })
       .catch((error) => {
-        console.error("login error", error);
+        console.error("登录请求失败", error);
         showAlert({
           message: "登录失败",
           type: "error",
@@ -102,12 +102,12 @@ const LoginPage = () => {
         <div className="hero-content flex-col lg:flex-row-reverse h-full">
           <div className="text-center lg:text-left shrink-0">
             <h1 className="text-5xl font-bold">My Flomo</h1>
-            <p className="py-6">随时随地记录想法和灵感</p>
+            <p className="py-6">自托管想法记录与回顾工具</p>
           </div>
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <div className="card-body">
-              <h2 className="card-title">登录/注册</h2>
-              <p className="text-sm text-base-content/60 mb-4">不存在的账号将自动注册</p>
+              <h2 className="card-title">账户登录</h2>
+              <p className="text-sm text-base-content/60 mb-4">邮箱未注册时自动创建账户</p>
 
               <div className="form-control">
                 <label className="label">
@@ -146,7 +146,7 @@ const LoginPage = () => {
                   <Logging />
                 ) : (
                   <button className="btn btn-primary w-full" onClick={handleLoginClick}>
-                    登录/注册
+                    登录
                   </button>
                 )}
               </div>

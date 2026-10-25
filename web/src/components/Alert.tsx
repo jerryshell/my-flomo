@@ -90,7 +90,7 @@ const Alert: React.FC<AlertProps> = ({
         <div className="flex items-center space-x-2">
           {getIcon()}
           <span>{message}</span>
-          <button className="btn btn-sm btn-circle btn-ghost" onClick={onClose}>
+          <button className="btn btn-sm btn-circle btn-ghost" onClick={onClose} aria-label="关闭">
             ✕
           </button>
         </div>

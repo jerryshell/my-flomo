@@ -11,6 +11,7 @@ import (
 	"github.com/jerryshell/my-flomo/api/service"
 )
 
+// UpdateUserPassword 修改当前用户密码，新密码不能为空
 func UpdateUserPassword(c *gin.Context) {
 	user := c.MustGet("user").(*model.User)
 
@@ -38,6 +39,7 @@ func UpdateUserPassword(c *gin.Context) {
 	c.JSON(http.StatusOK, result.Success())
 }
 
+// GetUserSettings 返回每日回顾与 Telegram 配置，密码等字段不下发
 func GetUserSettings(c *gin.Context) {
 	user := c.MustGet("user").(*model.User)
 
@@ -47,7 +49,6 @@ func GetUserSettings(c *gin.Context) {
 		return
 	}
 
-	// 返回用户设置信息，排除敏感字段
 	settings := map[string]interface{}{
 		"dailyReviewEnabled": userWithSettings.DailyReviewEnabled,
 		"telegramChatId":     userWithSettings.TelegramChatID,
@@ -57,6 +58,7 @@ func GetUserSettings(c *gin.Context) {
 	c.JSON(http.StatusOK, result.SuccessWithData(settings))
 }
 
+// UpdateUserSettings 保存每日回顾开关与 Telegram 配置
 func UpdateUserSettings(c *gin.Context) {
 	user := c.MustGet("user").(*model.User)
 

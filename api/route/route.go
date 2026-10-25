@@ -6,6 +6,7 @@ import (
 	"github.com/jerryshell/my-flomo/api/middleware"
 )
 
+// Setup 注册全部路由，需认证的接口先经过 JWT 中间件
 func Setup(app *gin.Engine) {
 	app.GET("/health", handler.Health)
 
@@ -21,7 +22,7 @@ func Setup(app *gin.Engine) {
 		memoGroup.POST("/create", middleware.JWTMiddleware(), handler.MemoCreate)
 		memoGroup.POST("/update", middleware.JWTMiddleware(), handler.MemoUpdate)
 		memoGroup.POST("/delete/id/:id", middleware.JWTMiddleware(), handler.MemoDeleteByID)
-		memoGroup.GET("/dailyReview", handler.MemoDailyReview)
+		memoGroup.GET("/dailyReview", handler.MemoDailyReview) // 无鉴权，供定时器或外部调用
 	}
 
 	pluginGroup := app.Group("/plugin")
@@ -41,6 +42,6 @@ func Setup(app *gin.Engine) {
 
 	app.POST("/upload", middleware.JWTMiddleware(), handler.Upload)
 	app.POST("/deleteMyAccount", middleware.JWTMiddleware(), handler.DeleteMyAccount)
-	app.GET("/csvExport/token/:token", handler.CsvExport)
+	app.GET("/csvExport/token/:token", handler.CsvExport) // 令牌放在路径中，供浏览器直接下载
 	app.POST("/csvImport", middleware.JWTMiddleware(), handler.CsvImport)
 }

@@ -4,15 +4,14 @@ import (
 	"regexp"
 )
 
-// ValidateEmail 验证email格式是否符合标准
+// ValidateEmail 校验邮箱格式
 func ValidateEmail(email string) bool {
-	// 基本的email格式正则表达式
 	emailRegex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
 	matched, _ := regexp.MatchString(emailRegex, email)
 	return matched
 }
 
-// GetEmailValidationMessage 获取email验证的错误信息
+// GetEmailValidationMessage 返回校验结果，空字符串表示通过
 func GetEmailValidationMessage(email string) string {
 	if email == "" {
 		return "邮箱不能为空"

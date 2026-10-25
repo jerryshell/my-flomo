@@ -11,7 +11,6 @@ export const useHealthCheck = () => {
       healthApi
         .health()
         .then((response) => {
-          console.log("health response", response);
           const success = response.data.success;
           if (success) {
             setServerStatus("在线");
@@ -28,10 +27,9 @@ export const useHealthCheck = () => {
         });
     };
 
-    // 初始检查
     checkHealth();
 
-    // 每30秒检查一次
+    // 每 30 秒轮询一次
     const interval = setInterval(checkHealth, 30000);
 
     return () => clearInterval(interval);

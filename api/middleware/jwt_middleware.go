@@ -10,6 +10,7 @@ import (
 	"github.com/jerryshell/my-flomo/api/util"
 )
 
+// JWTMiddleware 校验请求头 token，并把邮箱与用户写入上下文
 func JWTMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.GetHeader("token")

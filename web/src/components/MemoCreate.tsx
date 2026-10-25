@@ -32,7 +32,7 @@ const MemoCreate = (props: { fetchMemoList(): void }) => {
       <div className="form-control">
         <textarea
           className="textarea textarea-bordered h-24"
-          placeholder="开始记录想法..."
+          placeholder="记录此刻的想法"
           value={newMemo}
           onChange={(e) => setNewMemo(e.target.value)}
         />
