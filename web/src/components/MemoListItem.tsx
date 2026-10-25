@@ -26,9 +26,8 @@ const MemoListItem = (props: { memo: Memo }) => {
     memoApi
       .update(memo)
       .then((response) => {
-        const success = response.data.success;
-        if (success) {
-          const memo = response.data.data;
+        if (response.success) {
+          const memo = response.data;
           setMemoList(memoList.map((item) => (item.id === memo.id ? memo : item)));
         }
       })

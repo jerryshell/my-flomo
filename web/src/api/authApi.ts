@@ -1,8 +1,9 @@
-import api from "./api";
+import { post } from "./api";
+import LoginResponse from "../interfaces/LoginResponse";
 
 const authApi = {
   login: (data: { email: string; password: string }) => {
-    return api.post("/auth/login", data);
+    return post<LoginResponse>("/auth/login", data);
   },
 };
 

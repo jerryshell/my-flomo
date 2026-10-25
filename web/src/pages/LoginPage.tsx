@@ -47,17 +47,15 @@ const LoginPage = () => {
     authApi
       .login(postData)
       .then((response) => {
-        const success = response.data.success;
-        if (!success) {
+        if (!response.success) {
           showAlert({
-            message: response.data.message,
+            message: response.message,
             type: "error",
             duration: 3000,
           });
           return;
         }
-        const data = response.data.data;
-        handleLoginSuccess(data);
+        handleLoginSuccess(response.data);
       })
       .catch((error) => {
         console.error("登录请求失败", error);

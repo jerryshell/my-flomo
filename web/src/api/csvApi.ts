@@ -1,8 +1,8 @@
-import api from "./api";
+import { post } from "./api";
 
 const csvApi = {
   csvImport: (data: FormData) => {
-    return api.post("/csvImport", data);
+    return post<null>("/csvImport", data);
   },
 };
 

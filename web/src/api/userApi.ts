@@ -1,21 +1,27 @@
-import api from "./api";
+import { get, post } from "./api";
+
+export interface UserSettings {
+  dailyReviewEnabled: boolean;
+  telegramChatId: string;
+  telegramBotToken: string;
+}
 
 const userApi = {
   getSettings: () => {
-    return api.get("/user/getSettings");
+    return get<UserSettings>("/user/getSettings");
   },
   updatePassword: (data: { password: string }) => {
-    return api.post("/user/updatePassword", data);
+    return post<null>("/user/updatePassword", data);
   },
   updateSettings: (data: {
     dailyReviewEnabled: boolean;
     telegramChatId?: string;
     telegramBotToken?: string;
   }) => {
-    return api.post("/user/updateSettings", data);
+    return post<null>("/user/updateSettings", data);
   },
   triggerDailyReview: () => {
-    return api.get("/memo/dailyReview");
+    return get<null>("/memo/dailyReview");
   },
 };
 

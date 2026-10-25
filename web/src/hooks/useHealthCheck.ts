@@ -11,10 +11,9 @@ export const useHealthCheck = () => {
       healthApi
         .health()
         .then((response) => {
-          const success = response.data.success;
-          if (success) {
+          if (response.success) {
             setServerStatus("在线");
-            setHealthData(response.data.data);
+            setHealthData(response.data);
           } else {
             setServerStatus("离线");
             setHealthData(null);

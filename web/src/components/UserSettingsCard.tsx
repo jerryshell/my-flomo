@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import userApi from "../api/userApi";
 import pluginApi from "../api/pluginApi";
-import api from "../api/api";
+import { apiBaseURL } from "../api/api";
 import { useAlert } from "../hooks/useModal";
 import Alert from "./Alert";
 
@@ -25,16 +25,16 @@ const UserSettingsCard = () => {
 
   useEffect(() => {
     pluginApi.getToken().then((response) => {
-      if (response.data.success) {
-        setPluginToken(response.data.data);
+      if (response.success) {
+        setPluginToken(response.data);
       }
     });
 
     userApi
       .getSettings()
       .then((response) => {
-        if (response.data.success) {
-          const settings = response.data.data;
+        if (response.success) {
+          const settings = response.data;
           setDailyReviewEnabled(settings.dailyReviewEnabled || false);
           setTelegramChatId(settings.telegramChatId || "");
           setTelegramBotToken(settings.telegramBotToken || "");
@@ -73,7 +73,7 @@ const UserSettingsCard = () => {
     userApi
       .updatePassword({ password: newPassword })
       .then((response) => {
-        if (response.data.success) {
+        if (response.success) {
           showAlert({
             message: "密码更新成功",
             type: "success",
@@ -83,7 +83,7 @@ const UserSettingsCard = () => {
           setNewPassword2("");
         } else {
           showAlert({
-            message: response.data.message,
+            message: response.message,
             type: "error",
             duration: 3000,
           });
@@ -111,7 +111,7 @@ const UserSettingsCard = () => {
         telegramBotToken,
       })
       .then((response) => {
-        if (response.data.success) {
+        if (response.success) {
           showAlert({
             message: "偏好设置已保存",
             type: "success",
@@ -119,7 +119,7 @@ const UserSettingsCard = () => {
           });
         } else {
           showAlert({
-            message: response.data.message,
+            message: response.message,
             type: "error",
             duration: 3000,
           });
@@ -143,7 +143,7 @@ const UserSettingsCard = () => {
     try {
       const response = await userApi.triggerDailyReview();
 
-      if (response.data.success) {
+      if (response.success) {
         showAlert({
           message: "每日回顾测试已触发",
           type: "success",
@@ -151,7 +151,7 @@ const UserSettingsCard = () => {
         });
       } else {
         showAlert({
-          message: response.data.message,
+          message: response.message,
           type: "error",
           duration: 3000,
         });
@@ -173,8 +173,8 @@ const UserSettingsCard = () => {
     pluginApi
       .createToken()
       .then((response) => {
-        if (response.data.success) {
-          setPluginToken(response.data.data);
+        if (response.success) {
+          setPluginToken(response.data);
           showAlert({
             message: "插件令牌已生成",
             type: "success",
@@ -182,7 +182,7 @@ const UserSettingsCard = () => {
           });
         } else {
           showAlert({
-            message: response.data.message,
+            message: response.message,
             type: "error",
             duration: 3000,
           });
@@ -361,7 +361,7 @@ const UserSettingsCard = () => {
                       className="btn btn-xs btn-ghost text-base-content/60 hover:text-base-content"
                       onClick={() => {
                         navigator.clipboard.writeText(
-                          `${api.defaults.baseURL}/plugin/createMemo/${pluginToken}`,
+                          `${apiBaseURL}/plugin/createMemo/${pluginToken}`,
                         );
                         showAlert({
                           message: "接口地址已复制",
@@ -390,7 +390,7 @@ const UserSettingsCard = () => {
                   </div>
                   <div className="bg-base-300/50 p-3 rounded">
                     <code className="text-xs break-all font-mono text-base-content">
-                      {api.defaults.baseURL}/plugin/createMemo/{pluginToken}
+                      {apiBaseURL}/plugin/createMemo/{pluginToken}
                     </code>
                   </div>
                   <p className="text-xs text-base-content/60 mt-2">
@@ -405,7 +405,7 @@ const UserSettingsCard = () => {
                       className="btn btn-xs btn-ghost text-base-content/60 hover:text-base-content"
                       onClick={() => {
                         navigator.clipboard.writeText(
-                          `${api.defaults.baseURL}/plugin/randomMemo/${pluginToken}`,
+                          `${apiBaseURL}/plugin/randomMemo/${pluginToken}`,
                         );
                         showAlert({
                           message: "接口地址已复制",
@@ -434,7 +434,7 @@ const UserSettingsCard = () => {
                   </div>
                   <div className="bg-base-300/50 p-3 rounded">
                     <code className="text-xs break-all font-mono text-base-content">
-                      {api.defaults.baseURL}/plugin/randomMemo/{pluginToken}
+                      {apiBaseURL}/plugin/randomMemo/{pluginToken}
                     </code>
                   </div>
                   <p className="text-xs text-base-content/60 mt-2">

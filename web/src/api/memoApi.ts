@@ -1,17 +1,18 @@
-import api from "./api";
+import { get, post } from "./api";
+import Memo from "../interfaces/Memo";
 
 const memoApi = {
   list: () => {
-    return api.get("/memo/list");
+    return get<Memo[]>("/memo/list");
   },
   create: (data: { content: string }) => {
-    return api.post("/memo/create", data);
+    return post<Memo>("/memo/create", data);
   },
   update: (data: { id: string; content: string }) => {
-    return api.post("/memo/update", data);
+    return post<Memo>("/memo/update", data);
   },
   deleteById: (id: string) => {
-    return api.post(`/memo/delete/id/${id}`);
+    return post<null>(`/memo/delete/id/${id}`);
   },
 };
 

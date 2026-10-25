@@ -1,9 +1,9 @@
-import api from "../api/api";
+import { apiUrl } from "../api/api";
 
 const CsvExport = () => {
   const handleCsvExportBtnClick = () => {
     const token = localStorage.getItem("token");
-    window.open(`${api.defaults.baseURL}/csvExport/token/${token}`);
+    window.open(apiUrl(`/csvExport/token/${token}`));
   };
 
   return (

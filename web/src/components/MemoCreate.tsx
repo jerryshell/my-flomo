@@ -16,8 +16,7 @@ const MemoCreate = (props: { fetchMemoList(): void }) => {
         content: newMemo,
       })
       .then((response) => {
-        const success = response.data.success;
-        if (success) {
+        if (response.success) {
           props.fetchMemoList();
         }
       })

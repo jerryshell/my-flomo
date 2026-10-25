@@ -1,11 +1,11 @@
-import api from "./api";
+import { get, post } from "./api";
 
 const pluginApi = {
   getToken: () => {
-    return api.get("/plugin/getToken");
+    return get<string>("/plugin/getToken");
   },
   createToken: () => {
-    return api.post("/plugin/createToken");
+    return post<string>("/plugin/createToken");
   },
 };
 

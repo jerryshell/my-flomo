@@ -25,13 +25,16 @@ function App() {
   };
 
   const fetchMemoList = () => {
-    return memoApi.list().then((response) => {
-      const success = response.data.success;
-      if (success) {
-        const memoList = response.data.data;
-        setMemoList(memoList);
-      }
-    });
+    return memoApi
+      .list()
+      .then((response) => {
+        if (response.success) {
+          setMemoList(response.data);
+        }
+      })
+      .catch(() => {
+        // 令牌失效时由请求层跳转登录页
+      });
   };
 
   useEffect(() => {

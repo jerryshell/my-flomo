@@ -1,8 +1,9 @@
-import api from "./api";
+import { get } from "./api";
+import { HealthData } from "../interfaces/HealthData";
 
 const healthApi = {
   health: () => {
-    return api.get("/health");
+    return get<HealthData>("/health");
   },
 };
 

@@ -18,10 +18,9 @@ const DangerousArea = (props: { logout: () => void }) => {
     deleteMyAccountApi
       .deleteMyAccount()
       .then((response) => {
-        const success = response.data.success;
-        if (success) {
+        if (response.success) {
           showAlert({
-            message: response.data.message,
+            message: response.message,
             type: "success",
             duration: 2000,
           });

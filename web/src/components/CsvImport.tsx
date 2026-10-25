@@ -28,8 +28,7 @@ const CsvImport = (props: { fetchMemoList: () => void }) => {
     csvApi
       .csvImport(formData)
       .then((response) => {
-        const success = response.data.success;
-        if (success) {
+        if (response.success) {
           props.fetchMemoList();
           showAlert({
             message: "导入成功",
@@ -38,7 +37,7 @@ const CsvImport = (props: { fetchMemoList: () => void }) => {
           });
         } else {
           showAlert({
-            message: response.data.message,
+            message: response.message,
             type: "error",
             duration: 3000,
           });

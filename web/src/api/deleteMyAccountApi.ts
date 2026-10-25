@@ -1,8 +1,8 @@
-import api from "./api";
+import { post } from "./api";
 
 const deleteMyAccountApi = {
   deleteMyAccount: () => {
-    return api.post("/deleteMyAccount");
+    return post<null>("/deleteMyAccount");
   },
 };
 
