@@ -1,8 +1,8 @@
-import { useRecoilState } from "recoil";
+import { useAtom } from "jotai";
 import { atoms } from "../atoms/atoms";
 
 const MemoKeywordFilter = () => {
-  const [memoKeyword, setMemoKeyword] = useRecoilState(atoms.memoKeyword);
+  const [memoKeyword, setMemoKeyword] = useAtom(atoms.memoKeyword);
 
   return (
     <div className="card bg-base-100 shadow-lg border border-base-300/50">

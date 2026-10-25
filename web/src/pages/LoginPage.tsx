@@ -1,7 +1,7 @@
 import { KeyboardEvent, useState } from "react";
 import authApi from "../api/authApi";
 import LoginResponse from "../interfaces/LoginResponse";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useAtom, useSetAtom } from "jotai";
 import { atoms } from "../atoms/atoms";
 import { getEmailValidationMessage } from "../utils/emailValidator";
 import { useAlert } from "../hooks/useModal";
@@ -15,8 +15,8 @@ const Logging = () => (
 );
 
 const LoginPage = () => {
-  const [email, setEmail] = useRecoilState(atoms.email);
-  const setToken = useSetRecoilState(atoms.token);
+  const [email, setEmail] = useAtom(atoms.email);
+  const setToken = useSetAtom(atoms.token);
 
   const [password, setPassword] = useState("");
   const [logging, setLogging] = useState(false);

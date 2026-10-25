@@ -6,14 +6,14 @@ import LoginPage from "./pages/LoginPage";
 import Header from "./components/Header";
 import memoApi from "./api/memoApi";
 import HomePage from "./pages/HomePage";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useAtomValue, useSetAtom } from "jotai";
 import { atoms } from "./atoms/atoms";
 
 function App() {
-  const token = useRecoilValue(atoms.token);
-  const setMemoList = useSetRecoilState(atoms.memoList);
-  const setEmail = useSetRecoilState(atoms.email);
-  const setToken = useSetRecoilState(atoms.token);
+  const token = useAtomValue(atoms.token);
+  const setMemoList = useSetAtom(atoms.memoList);
+  const setEmail = useSetAtom(atoms.email);
+  const setToken = useSetAtom(atoms.token);
 
   const navigate = useNavigate();
 

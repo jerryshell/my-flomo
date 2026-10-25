@@ -15,7 +15,7 @@
 ## 技术栈
 
 - 后端：Go、Gin、GORM、SQLite、JWT、robfig cron、SMTP、Telegram Bot API、zap
-- 前端：React、TypeScript、Vite、Recoil、React Router、Axios、Tailwind CSS、daisyUI
+- 前端：React、TypeScript、Vite、Jotai、React Router、Axios、Tailwind CSS、daisyUI
 
 ## 项目结构
 
@@ -35,7 +35,7 @@ api/
 web/
 └── src/
     ├── api/         # 接口封装
-    ├── atoms/       # Recoil 状态
+    ├── atoms/       # Jotai 状态
     ├── components/  # 组件
     ├── hooks/       # 健康检查与弹窗
     ├── interfaces/  # 类型定义

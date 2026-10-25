@@ -1,7 +1,7 @@
 import { useState } from "react";
 import memoApi from "../api/memoApi";
 import Memo from "../interfaces/Memo";
-import { useRecoilState } from "recoil";
+import { useAtom } from "jotai";
 import { atoms } from "../atoms/atoms";
 import dayjs from "dayjs";
 import { useModal } from "../hooks/useModal";
@@ -10,7 +10,7 @@ import Modal from "./Modal";
 const MemoListItem = (props: { memo: Memo }) => {
   const [editModeFlag, setEditModeFlag] = useState(false);
   const [memo, setMemo] = useState({ ...props.memo });
-  const [memoList, setMemoList] = useRecoilState(atoms.memoList);
+  const [memoList, setMemoList] = useAtom(atoms.memoList);
   const [isLoading, setIsLoading] = useState(false);
   const { modalOpen, modalConfig, showModal, hideModal } = useModal();
 
